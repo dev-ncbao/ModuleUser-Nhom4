@@ -38,9 +38,9 @@ namespace WebApplication4.Controllers
             return Ok();
         }
         [HttpDelete("Delete")]
-        public async Task<ActionResult<IEnumerable<Account>>> DeleteUser(int id)
+        public async Task<ActionResult<IEnumerable<Account>>> DeleteUser(string username)
         {
-            var user = await dbcontext.Accounts.FindAsync(id);
+            var user = await dbcontext.Accounts.FindAsync(username);
             if (user == null)
                 return BadRequest("Not found!");
             dbcontext.Accounts.Remove(user);
@@ -50,7 +50,7 @@ namespace WebApplication4.Controllers
         [HttpPut]
         public async Task<ActionResult<Account>> Put(Account repuests)
         {
-            var acc = await dbcontext.Accounts.FindAsync(repuests.ID);
+            var acc = await dbcontext.Accounts.FindAsync(repuests.username);
             if (acc == null)
                 return NotFound();
             acc.username = repuests.username;

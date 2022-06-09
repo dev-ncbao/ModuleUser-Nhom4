@@ -1,8 +1,10 @@
-﻿namespace WebApplication4.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication4.Entity
 {
     public class Account
     {
-        public int ID { get; set; }
+        [Key]
         public string username { get; set; }
         public string password { get; set; }
 

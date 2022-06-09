@@ -23,21 +23,14 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("WebApplication4.Entity.Account", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    b.Property<string>("username")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
+                    b.HasKey("username");
 
                     b.ToTable("Accounts");
                 });
