@@ -27,6 +27,16 @@ namespace WebApplication4.Controllers
             await dbcontext.SaveChangesAsync();
             return Ok(acc);
         }
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<Account>> Login(Account account)
+        {
+            var acc = dbcontext.Accounts.Where(a => a.username == account.username && 
+                a.password == account.password).SingleOrDefault();
+            if(acc == null)
+                return NotFound();
+            return Ok();
+        }
         [HttpDelete("Delete")]
         public async Task<ActionResult<IEnumerable<Account>>> DeleteUser(int id)
         {

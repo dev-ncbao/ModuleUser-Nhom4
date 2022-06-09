@@ -9992,11 +9992,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\.NET\\WebApplication4\\WebApplication4\\WebApplication4.csproj",
+      "projectUniqueName": "E:\\TTTT\\Homework\\ModuleUser-Nhom4\\WebApplication4\\WebApplication4\\WebApplication4.csproj",
       "projectName": "WebApplication4",
-      "projectPath": "E:\\.NET\\WebApplication4\\WebApplication4\\WebApplication4.csproj",
+      "projectPath": "E:\\TTTT\\Homework\\ModuleUser-Nhom4\\WebApplication4\\WebApplication4\\WebApplication4.csproj",
       "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-      "outputPath": "E:\\.NET\\WebApplication4\\WebApplication4\\obj\\",
+      "outputPath": "E:\\TTTT\\Homework\\ModuleUser-Nhom4\\WebApplication4\\WebApplication4\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
