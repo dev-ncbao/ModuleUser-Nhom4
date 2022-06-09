@@ -1,0 +1,2 @@
+- Server API: http://localhost:5555
+- Frontend: http://localhost:3000
