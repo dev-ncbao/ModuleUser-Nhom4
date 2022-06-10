@@ -21,22 +21,39 @@ namespace ModuleUser.Controllers
         {
             return await dbcontext.Users.ToListAsync();
         }
-       
+
         [HttpPost]
-        public async Task<ActionResult<User>> Create(User account)
+        public async Task<ActionResult<User>> Create(UserCreation account)
         {
-            await dbcontext.Users.AddAsync(account);
+            var existingUser = await dbcontext.Users.SingleOrDefaultAsync(u => u.Username == account.Username);
+
+            if (existingUser != null)
+            {
+                return Conflict();
+            }
+
+            var user = new User()
+            {
+                Username = account.Username,
+                Password = account.Password,
+                Name = account.Name,
+                Expire = null
+            };
+
+            await dbcontext.Users.AddAsync(user);
             await dbcontext.SaveChangesAsync();
-            return Ok(account);
+            return Ok(user);
         }
+
         [HttpGet]
         [Route("{username}")]
         public async Task<User> GetUser(string username)
         {
             return dbcontext.Users.SingleOrDefault(x => x.Username == username);
         }
+
         [HttpPost("Login")]
-        public async Task<ActionResult<User>> Login(User account)
+        public async Task<ActionResult<User>> Login(UserLogin account)
         {
             var acc = await dbcontext.Users.Where(a => a.Username == account.Username &&
                 a.Password == account.Password).SingleOrDefaultAsync();
@@ -51,14 +68,14 @@ namespace ModuleUser.Controllers
         {
             var user = await dbcontext.Users.FindAsync(username);
             if (user == null)
-                return BadRequest("Not found!");
+                return BadRequest();
             dbcontext.Users.Remove(user);
             await dbcontext.SaveChangesAsync();
             return Ok();
         }
 
         [HttpPut]
-        public async Task<ActionResult<User>> Put(User requests)
+        public async Task<ActionResult> Put(User requests)
         {
             var acc = await dbcontext.Users.FindAsync(requests.Username);
             if (acc == null)
@@ -67,7 +84,7 @@ namespace ModuleUser.Controllers
             acc.Password = requests.Password;
             acc.Expire = requests.Expire;
             await dbcontext.SaveChangesAsync();
-            return Ok(acc);
+            return Ok();
         }
     }
 }
