@@ -25,7 +25,7 @@ namespace ModuleUser.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Create(User account)
         {
-            dbcontext.Users.Add(account);
+            await dbcontext.Users.AddAsync(account);
             await dbcontext.SaveChangesAsync();
             return Ok(account);
         }
@@ -33,8 +33,8 @@ namespace ModuleUser.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<User>> Login(User account)
         {
-            var acc = dbcontext.Users.Where(a => a.Username == account.Username &&
-                a.Password == account.Password).SingleOrDefault();
+            var acc = await dbcontext.Users.Where(a => a.Username == account.Username &&
+                a.Password == account.Password).SingleOrDefaultAsync();
             if (acc == null)
                 return NotFound();
             return Ok();
@@ -48,7 +48,7 @@ namespace ModuleUser.Controllers
             if (user == null)
                 return BadRequest("Not found!");
             dbcontext.Users.Remove(user);
-            dbcontext.SaveChanges();
+            await dbcontext.SaveChangesAsync();
             return Ok();
         }
 
@@ -61,7 +61,7 @@ namespace ModuleUser.Controllers
             acc.Name = requests.Name;
             acc.Password = requests.Password;
             acc.Expire = requests.Expire;
-            dbcontext.SaveChanges();
+            await dbcontext.SaveChangesAsync();
             return Ok(acc);
         }
     }
