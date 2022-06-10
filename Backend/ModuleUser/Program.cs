@@ -14,7 +14,7 @@ builder.Services.AddCors(config =>
 {
     config.AddPolicy("UserModelPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:3000");
+        policy.WithOrigins("http://localhost:3000").WithMethods().WithHeaders();
     });
 });
 builder.Services.AddDbContextPool<UserDbContext>(options =>
