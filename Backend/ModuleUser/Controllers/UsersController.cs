@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ModuleUser.Data;
 using ModuleUser.Entities;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ModuleUser.Controllers
 {
@@ -10,6 +12,20 @@ namespace ModuleUser.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
+        private string Hash(string str)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(str);
+            bytes = MD5.HashData(bytes);
+            var sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                sBuilder.Append(bytes[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
         private readonly UserDbContext dbcontext;
         public UsersController(UserDbContext dbcontext)
         {
@@ -31,11 +47,11 @@ namespace ModuleUser.Controllers
             {
                 return Conflict();
             }
-
+            string pass = this.Hash(account.Password);
             var user = new User()
             {
                 Username = account.Username,
-                Password = account.Password,
+                Password = pass,
                 Name = account.Name,
                 Expire = null
             };
@@ -55,8 +71,9 @@ namespace ModuleUser.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<User>> Login(UserLogin account)
         {
+            string pass = this.Hash(account.Password);
             var acc = await dbcontext.Users.Where(a => a.Username == account.Username &&
-                a.Password == account.Password).SingleOrDefaultAsync();
+                a.Password == pass).SingleOrDefaultAsync();
             if (acc == null)
                 return NotFound();
             return Ok();
@@ -80,8 +97,9 @@ namespace ModuleUser.Controllers
             var acc = await dbcontext.Users.FindAsync(requests.Username);
             if (acc == null)
                 return NotFound();
+            string pass = this.Hash(requests.Password);
             acc.Name = requests.Name;
-            acc.Password = requests.Password;
+            acc.Password = pass;
             acc.Expire = requests.Expire;
             await dbcontext.SaveChangesAsync();
             return Ok();
