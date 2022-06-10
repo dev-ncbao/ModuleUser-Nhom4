@@ -1,5 +1,5 @@
-<template src="./hello.html"></template>
-<style src="./hello.scss" lang="scss"></style>
+<template src="./Login.html"></template>
+<style src="./Login.scss" lang="scss"></style>
 
 <script setup lang="ts">
     fetch('http://localhost:5555/users', {

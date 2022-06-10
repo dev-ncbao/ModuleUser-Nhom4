@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <h1>User List</h1>
+    <Router-link to="/Users/add" class="btn btn-primary ">Add User</Router-link>
+    <br><br>
+    <table class="table">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Password</th>
+                <th scope="col">&emsp;&emsp;&ensp;Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(value, index) in data" :key="index">
+                <th scope="row">{{ value.id }}</th>
+                <td>{{ value.username }}</td>
+                <td>{{ value.password }}</td>
+                <td>
+                    <Router-link :to="'/user/edit/' + value.id" class="btn btn-primary">Edit</Router-link>&emsp;
+                    <button class="btn btn-danger" v-on:click="deleteData(value.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
