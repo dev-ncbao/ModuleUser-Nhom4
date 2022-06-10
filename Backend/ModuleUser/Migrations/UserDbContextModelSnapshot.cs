@@ -27,7 +27,7 @@ namespace ModuleUser.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Expire")
+                    b.Property<DateTime?>("Expire")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")

@@ -12,8 +12,8 @@ using ModuleUser.Data;
 namespace ModuleUser.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20220610013244_myMi")]
-    partial class myMi
+    [Migration("20220610065321_Mi")]
+    partial class Mi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace ModuleUser.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Expire")
+                    b.Property<DateTime?>("Expire")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")

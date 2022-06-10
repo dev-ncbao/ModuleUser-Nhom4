@@ -8,9 +8,17 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ModuleUser
 build_property.RootNamespace = ModuleUser
+<<<<<<< HEAD:Backend/ModuleUser/obj/Debug/net6.0/ModuleUser.GeneratedMSBuildEditorConfig.editorconfig
 build_property.ProjectDir = d:\IT_workspace\Curremt_Semeter\Thuc_Tap\Homework\ModuleUser\Backend\ModuleUser\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = d:\IT_workspace\Curremt_Semeter\Thuc_Tap\Homework\ModuleUser\Backend\ModuleUser
+=======
+build_property.ProjectDir = E:\TTTT\Homework\Nhom4\ModuleUser-Nhom4\Backend\ModuleUser\ModuleUser\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\TTTT\Homework\Nhom4\ModuleUser-Nhom4\Backend\ModuleUser\ModuleUser
+>>>>>>> 0e89a93d60f90a0755b35007932f741325a306f9:Backend/ModuleUser/ModuleUser/obj/Debug/net6.0/ModuleUser.GeneratedMSBuildEditorConfig.editorconfig
 build_property._RazorSourceGeneratorDebug = 

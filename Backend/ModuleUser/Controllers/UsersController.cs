@@ -21,7 +21,7 @@ namespace ModuleUser.Controllers
         {
             return await dbcontext.Users.ToListAsync();
         }
-
+       
         [HttpPost]
         public async Task<ActionResult<User>> Create(User account)
         {
@@ -29,7 +29,12 @@ namespace ModuleUser.Controllers
             await dbcontext.SaveChangesAsync();
             return Ok(account);
         }
-
+        [HttpGet]
+        [Route("{username}")]
+        public async Task<User> GetUser(string username)
+        {
+            return dbcontext.Users.SingleOrDefault(x => x.Username == username);
+        }
         [HttpPost("Login")]
         public async Task<ActionResult<User>> Login(User account)
         {
