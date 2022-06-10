@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\IT_workspace\\Curremt_Semeter\\Thuc_Tap\\Homework\\ModuleUser\\Backend\\ModuleUser\\ModuleUser.csproj": {}
+    "C:\\Users\\admin\\Desktop\\Nhom4version2\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj": {}
   },
   "projects": {
-    "D:\\IT_workspace\\Curremt_Semeter\\Thuc_Tap\\Homework\\ModuleUser\\Backend\\ModuleUser\\ModuleUser.csproj": {
+    "C:\\Users\\admin\\Desktop\\Nhom4version2\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\IT_workspace\\Curremt_Semeter\\Thuc_Tap\\Homework\\ModuleUser\\Backend\\ModuleUser\\ModuleUser.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\Desktop\\Nhom4version2\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj",
         "projectName": "ModuleUser",
-        "projectPath": "D:\\IT_workspace\\Curremt_Semeter\\Thuc_Tap\\Homework\\ModuleUser\\Backend\\ModuleUser\\ModuleUser.csproj",
-        "packagesPath": "C:\\Users\\NCB-PC\\.nuget\\packages\\",
-        "outputPath": "D:\\IT_workspace\\Curremt_Semeter\\Thuc_Tap\\Homework\\ModuleUser\\Backend\\ModuleUser\\obj\\",
+        "projectPath": "C:\\Users\\admin\\Desktop\\Nhom4version2\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\Desktop\\Nhom4version2\\ModuleUser-Nhom4\\Backend\\ModuleUser\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\NCB-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.105\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
