@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\admin\\Desktop\\Nhom4version2\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "E:\\TTTT\\Homework\\Nhom4\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj": {}
+  },
+  "projects": {
+    "E:\\TTTT\\Homework\\Nhom4\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\TTTT\\Homework\\Nhom4\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj",
+        "projectName": "ModuleUser",
+        "projectPath": "E:\\TTTT\\Homework\\Nhom4\\ModuleUser-Nhom4\\Backend\\ModuleUser\\ModuleUser.csproj",
+        "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
+        "outputPath": "E:\\TTTT\\Homework\\Nhom4\\ModuleUser-Nhom4\\Backend\\ModuleUser\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 1cd9669eb7cdfc0039bb9c4890daf7d9ab63413c
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +57,26 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22229.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22229.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22229.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0-preview.4.22229.2, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
@@ -63,7 +100,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+>>>>>>> 1cd9669eb7cdfc0039bb9c4890daf7d9ab63413c
         }
       }
     }

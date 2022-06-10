@@ -8,9 +8,17 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ModuleUser
 build_property.RootNamespace = ModuleUser
+<<<<<<< HEAD
 build_property.ProjectDir = c:\Users\admin\Desktop\Nhom4version2\ModuleUser-Nhom4\Backend\ModuleUser\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = c:\Users\admin\Desktop\Nhom4version2\ModuleUser-Nhom4\Backend\ModuleUser
+=======
+build_property.ProjectDir = E:\TTTT\Homework\Nhom4\ModuleUser-Nhom4\Backend\ModuleUser\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\TTTT\Homework\Nhom4\ModuleUser-Nhom4\Backend\ModuleUser
+>>>>>>> 1cd9669eb7cdfc0039bb9c4890daf7d9ab63413c
 build_property._RazorSourceGeneratorDebug = 
