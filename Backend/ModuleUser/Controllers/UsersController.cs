@@ -104,5 +104,13 @@ namespace ModuleUser.Controllers
             await dbcontext.SaveChangesAsync();
             return Ok();
         }
+        [HttpPut("expire")]
+        public async Task<ActionResult> PutExpire(UserExpire user)
+        {
+            var acc = await dbcontext.Users.SingleOrDefaultAsync(u => u.Username == user.Username);
+            acc.Expire = user.Expire;
+            await dbcontext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
