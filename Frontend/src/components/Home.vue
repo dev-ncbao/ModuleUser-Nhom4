@@ -61,13 +61,13 @@ export default {
             if (data) {
                 this.axios.post(api2, data).then(res => {
                     if (res.status == 200) {
-                        localStorage.setItem('key',this.username)
+                        localStorage.setItem('key', this.username)
                         this.$router.push('/user')
                         // console.log(localStorage.getItem('key',this.username))
                     }
                 })
                     .catch(error => {
-                        alert("Ban da bi ban nick!!!")
+                        alert("Chúc mừng, bạn đã bị ban nick :))")
                     })
             }
         }

@@ -2,7 +2,7 @@
     <div class="container mt-4">
         <h1>Users List</h1>
         <Router-link to="/user/add" class="btn btn-primary ">Add User</Router-link>
-        <button v-on:click="logout" class="btn btn-secondary" style="margin-left: 70%;">Log out</button>
+        <button v-on:click="logout()" class="btn btn-secondary" style="margin-left: 70%;">Log out</button>
         <br><br>
         <table class="table">
             <thead>
@@ -48,7 +48,7 @@ export default {
                 this.data = res.data;
             }
             const key = localStorage.getItem('key')
-            if(!key){
+            if (!key) {
                 this.$router.push('/')
             }
         })
@@ -56,10 +56,10 @@ export default {
     methods: {
         deleteData(username) {
             const key = localStorage.getItem('key')
-            if (key==username) {
-                alert("Nguoi dung dang login!!!")
+            if (key == username) {
+                alert("Bạn đang login, sao xóa được?")
             }
-            else{    
+            else {
                 if (username) {
                     this.axios.delete(`${api}/${username}`).then(res => {
                         if (res.status == 200) {
@@ -67,6 +67,9 @@ export default {
                             this.data = newArr
                         }
                     })
+                        .catch(error => {
+                            alert("Người ta đang login, ai cho xóa???")
+                        })
                 }
             }
         },
