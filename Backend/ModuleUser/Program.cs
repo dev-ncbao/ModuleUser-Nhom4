@@ -1,4 +1,9 @@
+using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using ModuleUser.Entities;
+using ModuleUser.Repositories;
+using ModuleUser.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +21,20 @@ builder.Services.AddCors(config =>
     });
 });
 
+builder.Services.AddSingleton<AppDbContext>();
+builder.Services.AddSingleton<IUsersRepository, UsersRepository>();
+builder.Services.AddSingleton<HashAlgorithm>((serviceProvider) =>
+{
+    var instance = HashAlgorithm.Create(HashAlgorithmName.SHA256.Name);
+    return instance;
+});
+builder.Services.AddSingleton<EncryptorUtil>((serviceProvider) =>
+{
+    var hashInstance = serviceProvider.GetService<HashAlgorithm>();
+    return new(hashInstance);
+});
+
+//
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
