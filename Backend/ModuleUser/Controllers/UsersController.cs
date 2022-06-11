@@ -76,6 +76,9 @@ namespace ModuleUser.Controllers
                 a.Password == pass).SingleOrDefaultAsync();
             if (acc == null)
                 return NotFound();
+            TimeSpan aInterval = new System.TimeSpan(0, 1, 0, 0);
+            acc.Expire = DateTime.Now.Add(aInterval);
+            await dbcontext.SaveChangesAsync();
             return Ok();
         }
 
@@ -86,9 +89,21 @@ namespace ModuleUser.Controllers
             var user = await dbcontext.Users.FindAsync(username);
             if (user == null)
                 return BadRequest();
-            dbcontext.Users.Remove(user);
-            await dbcontext.SaveChangesAsync();
-            return Ok();
+            if(user.Expire == null)
+            {
+                dbcontext.Users.Remove(user);
+                await dbcontext.SaveChangesAsync();
+                return Ok();
+            }
+            DateTime time = (DateTime)user.Expire;
+            if (user.Expire == null || (time.ToUniversalTime()-DateTime.UtcNow).TotalSeconds<0)
+            {
+                dbcontext.Users.Remove(user);
+                await dbcontext.SaveChangesAsync();
+                return Ok();
+            }
+            return BadRequest();
+            
         }
 
         [HttpPut]
@@ -101,14 +116,6 @@ namespace ModuleUser.Controllers
             acc.Name = requests.Name;
             acc.Password = pass;
             acc.Expire = requests.Expire;
-            await dbcontext.SaveChangesAsync();
-            return Ok();
-        }
-        [HttpPut("expire")]
-        public async Task<ActionResult> PutExpire(UserExpire user)
-        {
-            var acc = await dbcontext.Users.SingleOrDefaultAsync(u => u.Username == user.Username);
-            acc.Expire = user.Expire;
             await dbcontext.SaveChangesAsync();
             return Ok();
         }
