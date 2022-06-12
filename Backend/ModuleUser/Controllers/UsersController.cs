@@ -110,11 +110,25 @@ namespace ModuleUser.Controllers
             var acc = await dbcontext.Users.FindAsync(requests.Username);
             if (acc == null)
                 return NotFound();
-            string pass = this.Hash(requests.Password);
+            string pass = requests.Password;
+            if (acc.Password != requests.Password)
+            {
+                pass = this.Hash(requests.Password);
+            }
             acc.Name = requests.Name;
             acc.Password = pass;
             acc.Expire = requests.Expire;
             await dbcontext.SaveChangesAsync();
+            return Ok();
+        }
+        [HttpPut("LogOut")]
+        public async Task<ActionResult> LogOut(UserExpire user)
+        {
+            var acc = await dbcontext.Users.SingleOrDefaultAsync(a => a.Username == user.Username);
+            if(acc == null)
+                return BadRequest();
+            acc.Expire = null;
+            dbcontext.SaveChanges();
             return Ok();
         }
     }
