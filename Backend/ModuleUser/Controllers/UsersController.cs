@@ -5,6 +5,7 @@ using ModuleUser.Data;
 using ModuleUser.Entities;
 using System.Security.Cryptography;
 using System.Text;
+using System;
 
 namespace ModuleUser.Controllers
 {
@@ -26,6 +27,8 @@ namespace ModuleUser.Controllers
             }
             return sBuilder.ToString();
         }
+
+
         private readonly UserDbContext dbcontext;
         public UsersController(UserDbContext dbcontext)
         {
@@ -47,11 +50,11 @@ namespace ModuleUser.Controllers
             {
                 return Conflict();
             }
-            string pass = this.Hash(account.Password);
+
             var user = new User()
             {
                 Username = account.Username,
-                Password = pass,
+                Password = Hash(account.Password),
                 Name = account.Name,
                 Expire = null
             };
@@ -65,20 +68,21 @@ namespace ModuleUser.Controllers
         [Route("{username}")]
         public async Task<User> GetUser(string username)
         {
-            return dbcontext.Users.SingleOrDefault(x => x.Username == username);
+            return await dbcontext.Users.SingleOrDefaultAsync(x => x.Username == username);
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<User>> Login(UserLogin account)
+        public async Task<ActionResult> Login(UserLogin account)
         {
-            string pass = this.Hash(account.Password);
             var acc = await dbcontext.Users.Where(a => a.Username == account.Username &&
-                a.Password == pass).SingleOrDefaultAsync();
+                a.Password == Hash(account.Password)).SingleOrDefaultAsync();
+
             if (acc == null)
                 return NotFound();
-            TimeSpan aInterval = new System.TimeSpan(0, 1, 0, 0);
-            acc.Expire = DateTime.Now.Add(aInterval);
+
+            acc.Expire = DateTime.UtcNow.AddHours(1);
             await dbcontext.SaveChangesAsync();
+
             return Ok();
         }
 
@@ -89,21 +93,15 @@ namespace ModuleUser.Controllers
             var user = await dbcontext.Users.FindAsync(username);
             if (user == null)
                 return BadRequest();
-            if(user.Expire == null)
-            {
-                dbcontext.Users.Remove(user);
-                await dbcontext.SaveChangesAsync();
-                return Ok();
-            }
             DateTime time = (DateTime)user.Expire;
-            if (user.Expire == null || (time.ToUniversalTime()-DateTime.UtcNow).TotalSeconds<0)
+            if (user.Expire == null || (time.ToUniversalTime() - DateTime.UtcNow).TotalSeconds < 0)
             {
                 dbcontext.Users.Remove(user);
                 await dbcontext.SaveChangesAsync();
                 return Ok();
             }
             return BadRequest();
-            
+
         }
 
         [HttpPut]

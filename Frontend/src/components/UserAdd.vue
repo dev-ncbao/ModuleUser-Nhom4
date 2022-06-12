@@ -29,12 +29,12 @@ export default {
             name: ""
         }
     },
-    mounted(){
+   /*  mounted(){
         const key = localStorage.getItem('key')
             if(!key){
                 this.$router.push('/')
             }
-    },
+    }, */
     methods: {
         addData(e) {
             e.preventDefault();

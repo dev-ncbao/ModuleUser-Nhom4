@@ -41,10 +41,10 @@ export default {
                 }
             })
         }
-        const key = localStorage.getItem('key')
+/*         const key = localStorage.getItem('key')
             if(!key){
                 this.$router.push('/')
-            }
+            } */
     },
     methods: {
         saveData(e) {

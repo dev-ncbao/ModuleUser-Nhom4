@@ -47,10 +47,10 @@ export default {
             if (res.data) {
                 this.data = res.data;
             }
-            const key = localStorage.getItem('key')
+            /* const key = localStorage.getItem('key')
             if(!key){
                 this.$router.push('/')
-            }
+            } */
         })
     },
     methods: {
