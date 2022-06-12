@@ -21,7 +21,7 @@
                     <td>{{ value.username }}</td>
                     <td>{{ value.password }}</td>
                     <td>{{ value.name }}</td>
-                    <td>{{ value.expire }}</td>
+                    <td>{{ value.expire ? value.expire : "null" }}</td>
                     <td>
                         <Router-link :to="'/user/edit/' + value.username" class="btn btn-primary">Edit</Router-link>
                         &emsp;
@@ -35,7 +35,7 @@
 
 <script>
 import { RouterLink } from 'vue-router';
-import { api } from '../api';
+import { api, api3 } from '../api';
 export default {
     data() {
         return {
@@ -55,7 +55,7 @@ export default {
     },
     methods: {
         deleteData(username) {
-            const key = localStorage.getItem('key')
+            const key = localStorage.getItem('username')
             if (key==username) {
                 alert("Nguoi dung dang login!!!")
             }
@@ -66,13 +66,19 @@ export default {
                             let newArr = this.data.filter(el => el.username !== username)
                             this.data = newArr
                         }
-                    })
+                    }).
+                    catch(err => { alert("Có lỗi xảy ra")})
                 }
             }
         },
         logout() {
-            localStorage.clear()
+            this.axios.put(`${api3}/${localStorage.getItem('username')}`).then(res => {
+                        if (res.status == 200) {
+                            localStorage.clear()
             this.$router.push('/')
+                        }
+                    }).catch(err => { alert("Có lỗi xảy ra")})
+            
             // console.log(localStorage.getItem('key'))
         }
     }

@@ -1,5 +1,6 @@
-import { nextTick } from 'vue'
+import { api4 } from './../api'
 import { createRouter, createWebHistory } from 'vue-router'
+import axios from 'axios'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,12 +28,34 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach(() => {
-//   const key = localStorage.getItem('key')
-//   if (key) {
-//     router.push('/user') 
-//   }
-//   return true
-// })
+router.beforeEach(async (to, from) => {
+  // if (to.path === '/')
+  //   return '/user'
+
+  const key = localStorage.getItem('username')
+  let redir = null
+  if (key) {
+    await axios.get(`${api4}/${key}`)
+      .then(res => {
+        if (to.path === '/') {
+          redir = '/user'
+        }
+        else redir = true
+      })
+      .catch(err => {
+        if (to.path !== '/') {
+          redir = '/'
+        }
+        else redir = true
+      })
+    return redir
+  }
+  else {
+    if (to.path !== '/') {
+      return '/'
+    }
+    else return true
+  }
+})
 
 export default router

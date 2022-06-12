@@ -42,9 +42,12 @@ export default {
             let data = { name, username, password };
             if (data) {
                 this.axios.post(api, data).then(res => {
-                    if (res.data) {
+                    if (res.status === 200) {
                         this.$router.push('/user');
                     }
+                })
+                .catch(err => {
+                    alert("Có lỗi xảy ra")
                 })
             }
         }

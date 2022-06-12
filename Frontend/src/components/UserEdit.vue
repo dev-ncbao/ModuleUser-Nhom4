@@ -60,6 +60,9 @@ export default {
                         this.$router.push('/user')
                     }
                 })
+                .catch(er => {
+                    alert("Có lỗi xảy ra")
+                })
             }
         }
     }

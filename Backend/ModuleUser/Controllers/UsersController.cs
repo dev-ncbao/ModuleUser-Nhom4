@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ModuleUser.Data;
 using ModuleUser.Entities;
 using System.Security.Cryptography;
 using System.Text;
-using System;
 
 namespace ModuleUser.Controllers
 {
@@ -13,6 +11,12 @@ namespace ModuleUser.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
+        private readonly UserDbContext dbcontext;
+        public UsersController(UserDbContext dbcontext)
+        {
+            this.dbcontext = dbcontext;
+        }
+
         private string Hash(string str)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(str);
@@ -26,13 +30,6 @@ namespace ModuleUser.Controllers
                 sBuilder.Append(bytes[i].ToString("x2"));
             }
             return sBuilder.ToString();
-        }
-
-
-        private readonly UserDbContext dbcontext;
-        public UsersController(UserDbContext dbcontext)
-        {
-            this.dbcontext = dbcontext;
         }
 
         [HttpGet]
@@ -66,9 +63,16 @@ namespace ModuleUser.Controllers
 
         [HttpGet]
         [Route("{username}")]
-        public async Task<User> GetUser(string username)
+        public async Task<ActionResult<User>> GetUser(string username)
         {
-            return await dbcontext.Users.SingleOrDefaultAsync(x => x.Username == username);
+            var user = await dbcontext.Users.SingleOrDefaultAsync(x => x.Username == username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
         }
 
         [HttpPost("Login")]
@@ -93,8 +97,7 @@ namespace ModuleUser.Controllers
             var user = await dbcontext.Users.FindAsync(username);
             if (user == null)
                 return BadRequest();
-            DateTime time = (DateTime)user.Expire;
-            if (user.Expire == null || (time.ToUniversalTime() - DateTime.UtcNow).TotalSeconds < 0)
+            if (user.Expire == null || DateTime.UtcNow > user.Expire )
             {
                 dbcontext.Users.Remove(user);
                 await dbcontext.SaveChangesAsync();
@@ -105,31 +108,43 @@ namespace ModuleUser.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(User requests)
+        public async Task<ActionResult> Put(UserUpdate requests)
         {
             var acc = await dbcontext.Users.FindAsync(requests.Username);
             if (acc == null)
                 return NotFound();
-            string pass = requests.Password;
             if (acc.Password != requests.Password)
             {
-                pass = this.Hash(requests.Password);
+                acc.Password = Hash(requests.Password);
             }
             acc.Name = requests.Name;
-            acc.Password = pass;
-            acc.Expire = requests.Expire;
             await dbcontext.SaveChangesAsync();
             return Ok();
         }
-        [HttpPut("LogOut")]
-        public async Task<ActionResult> LogOut(UserExpire user)
+        [HttpPut("LogOut/{username}")]
+        public async Task<ActionResult> LogOut(string username)
         {
-            var acc = await dbcontext.Users.SingleOrDefaultAsync(a => a.Username == user.Username);
-            if(acc == null)
+            var acc = await dbcontext.Users.SingleOrDefaultAsync(a => a.Username == username);
+            if (acc == null)
                 return BadRequest();
             acc.Expire = null;
             dbcontext.SaveChanges();
             return Ok();
+        }
+
+        [HttpGet("Check/{username}")]
+        public async Task<ActionResult> Check(string username)
+        {
+            var acc = await dbcontext.Users.SingleOrDefaultAsync(a => a.Username == username);
+
+            if (acc.Expire == null || DateTime.UtcNow > acc.Expire)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                return Ok();
+            }
         }
     }
 }
